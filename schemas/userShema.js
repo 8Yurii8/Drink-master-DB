@@ -5,4 +5,4 @@ const userRegisterShema = Joi.object({
   password: Joi.string().required(),
 });
 
-export default { userRegisterShema };
+export default userRegisterShema;
