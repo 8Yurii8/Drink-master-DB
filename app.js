@@ -7,6 +7,7 @@ import {
   recipesRouter,
   ingredientsRoute,
   glassRouter,
+  subscribeRoute,
 } from "./routes/api/index.js";
 
 export const app = express();
@@ -21,7 +22,7 @@ app.use("/api/user", authRoute);
 app.use("/api/recipes", recipesRouter);
 app.use("/api/ingredients", ingredientsRoute);
 app.use("/api/glass", glassRouter);
-
+app.use("/api/subscribe", subscribeRoute);
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
