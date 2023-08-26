@@ -1,3 +1,3 @@
-export { default as recipesShema } from "./recipesShema.js";
-export { default as ingredientsShema } from "./ingredientsShema.js";
-export { default as userRegisterShema } from "./userShema.js";
+export { default as recipesSchema } from "./recipesSchema.js";
+export { default as ingredientsSchema } from "./ingredientsSchema.js";
+export { default as userSchema } from "./userSchema.js";
