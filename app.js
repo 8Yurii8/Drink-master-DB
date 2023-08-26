@@ -18,7 +18,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/user", authRoute);
+app.use("/api/auth", authRoute);
 app.use("/api/recipes", recipesRouter);
 app.use("/api/ingredients", ingredientsRoute);
 app.use("/api/glass", glassRouter);
