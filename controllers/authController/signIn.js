@@ -30,6 +30,7 @@ const signIn = async ({ body }, res) => {
     token,
     user: {
       email: user.email,
+      name: user.name,
     },
   });
 };
