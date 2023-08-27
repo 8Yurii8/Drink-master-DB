@@ -1,5 +1,5 @@
 import { Glasses } from '../../models/index.js';
-import { ctrlWrapper } from '../../decorators/index.js';
+import { ctrlWrapper } from '../../helpers/index.js';
 
 const getGlasses = async (req, res) => {
     const result = await Glasses.find({});

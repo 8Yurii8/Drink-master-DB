@@ -1,5 +1,5 @@
 import { Ingredients } from '../../models/index.js';
-import { ctrlWrapper } from '../../decorators/index.js';
+import { ctrlWrapper } from '../../helpers/index.js';
 
 const getIngredients = async (req, res) => {
     const result = await Ingredients.find({});
