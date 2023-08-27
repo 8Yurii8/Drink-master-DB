@@ -6,9 +6,10 @@ import "dotenv/config.js";
 import {
   authRoute,
   recipesRouter,
-  ingredientsRoute,
-  glassRouter,
+  ingredientsRouter,
+  glassesRouter,
   subscribeRoute,
+  categoriesRouter,
 } from "./routes/api/index.js";
 
 export const app = express();
@@ -22,8 +23,9 @@ app.use(express.json());
 
 app.use("/api/auth", authRoute);
 app.use("/api/recipes", recipesRouter);
-app.use("/api/ingredients", ingredientsRoute);
-app.use("/api/glass", glassRouter);
+app.use("/api/ingredients", ingredientsRouter);
+app.use("/api/glasses", glassesRouter);
+app.use("/api/categories", categoriesRouter);
 app.use("/api/subscribe", subscribeRoute);
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
