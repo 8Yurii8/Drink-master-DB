@@ -8,12 +8,12 @@ import { userSchema } from "../../schemas/index.js";
 import { validateBody } from "../../decorators/index.js";
 import { authenticate } from "../../middlewares/index.js";
 
-const authRoute = express.Router();
+const authRouter = express.Router();
 
-authRoute.post("/signup", validateBody(userSchema.userSignUpSchema), signUp);
+authRouter.post("/signup", validateBody(userSchema.userSignUpSchema), signUp);
 
-authRoute.post("/signin", validateBody(userSchema.userSignInSchema), signIn);
+authRouter.post("/signin", validateBody(userSchema.userSignInSchema), signIn);
 
-authRoute.post("/signout", authenticate, signOut);
+authRouter.post("/signout", authenticate, signOut);
 
-export default authRoute;
+export default authRouter;
