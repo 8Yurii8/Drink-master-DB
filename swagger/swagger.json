@@ -1,55 +1,104 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.0.1",
   "info": {
-    "title": "Drink API",
     "version": "1.0.0",
-    "description": "API documentation for Drink application"
+    "title": "Drink-Master API",
+    "description": "API documentation for Drink-Master application",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
   },
+  "servers": [
+    {
+      "url": "http://localhost:3030",
+      "description": "Local development server"
+    },
+    {
+      "url": "https://drink-master-db.onrender.com",
+      "description": "Deploy server"
+    }
+  ],
   "paths": {
     "/api/auth/signup": {
       "post": {
-        "summary": "Register a new user",
-        "tags": ["Authentication"],
+        "summary": "User registration",
+        "tags": ["Auth"],
         "requestBody": {
+          "description": "User registration data",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRegister"
+                "$ref": "#/components/schemas/RegistrationRequest"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "User registered successfully"
+            "description": "Successful registration",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request (invalid request body)"
+          },
+          "409": {
+            "description": "Conflict (email already exists)"
           }
         }
       }
     },
-    "/api/auth/login": {
+    "/api/auth/signin": {
       "post": {
-        "summary": "Log in as a user",
-        "tags": ["Authentication"],
+        "summary": "User login",
+        "tags": ["Auth"],
         "requestBody": {
+          "description": "User login data",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserLogin"
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "User logged in successfully"
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized (invalid credentials)"
+          }
+        }
+      }
+    },
+    "/api/auth/signout": {
+      "post": {
+        "summary": "User signout",
+        "tags": ["Auth"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful signout"
           }
         }
       }
@@ -57,27 +106,81 @@
   },
   "components": {
     "schemas": {
-      "UserRegister": {
+      "RegistrationRequest": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
           "email": {
-            "type": "string"
+            "type": "string",
+            "format": "email",
+            "example": "john@example.com"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "example": "password123"
           }
         }
       },
-      "UserLogin": {
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "john@example.com"
+          }
+        }
+      },
+      "LoginRequest": {
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "format": "email",
+            "example": "john@example.com"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "example": "password123"
           }
         }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "your_jwt_token_here"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "John Doe"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "example": "john@example.com"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
