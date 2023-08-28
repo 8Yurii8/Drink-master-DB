@@ -4,12 +4,14 @@ import cors from "cors";
 import "dotenv/config.js";
 
 import {
-  authRoute,
   recipesRouter,
   ingredientsRouter,
   glassesRouter,
-  subscribeRoute,
   categoriesRouter,
+  ownRouter,
+  authRouter,
+  subscribeRouter,
+  searchRouter,
 } from "./routes/api/index.js";
 
 export const app = express();
@@ -21,12 +23,14 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/api/auth", authRoute);
+app.use("/api/auth", authRouter);
 app.use("/api/recipes", recipesRouter);
 app.use("/api/ingredients", ingredientsRouter);
 app.use("/api/glasses", glassesRouter);
 app.use("/api/categories", categoriesRouter);
-app.use("/api/subscribe", subscribeRoute);
+app.use("/api/subscribe", subscribeRouter);
+app.use("/api/own", ownRouter);
+app.use("/api/search", searchRouter);
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });

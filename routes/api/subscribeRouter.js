@@ -4,9 +4,9 @@ import { validateBody } from "../../decorators/index.js";
 import { emailSchema } from "../../schemas/index.js";
 import ctrl from "../../controllers/subscripeController/index.js";
 
-const subscribeRoute = express.Router();
+const subscribeRouter = express.Router();
 
-subscribeRoute.post(
+subscribeRouter.post(
   "/",
   authenticate,
   isEmptyBody,
@@ -14,4 +14,4 @@ subscribeRoute.post(
   ctrl.subscribeController
 );
 
-export default subscribeRoute;
+export default subscribeRouter;
