@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getCurrent,
   signIn,
   signOut,
   signUp,
@@ -15,5 +16,7 @@ authRouter.post("/signup", validateBody(userSchema.userSignUpSchema), signUp);
 authRouter.post("/signin", validateBody(userSchema.userSignInSchema), signIn);
 
 authRouter.post("/signout", authenticate, signOut);
+
+authRouter.get("/current", authenticate, getCurrent);
 
 export default authRouter;
