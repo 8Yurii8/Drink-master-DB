@@ -16,6 +16,10 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Set password for user"],
     },
+    subscription: {
+      type: String,
+      default: "",
+    },
     token: String,
   },
   { versionKey: false, timestamps: true }

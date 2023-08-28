@@ -3,3 +3,4 @@ export { getGlasses } from "./glasses/index.js";
 export { getCategories } from "./categories/index.js";
 
 export { getRecipeById } from "./recipes/index.js";
+export { getRecipes } from "./recipes/index.js";
