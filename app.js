@@ -2,7 +2,7 @@ import express from "express";
 import logger from "morgan";
 import cors from "cors";
 import "dotenv/config.js";
-
+import swaggerUi from "swagger-ui-express";
 import {
   recipesRouter,
   ingredientsRouter,
@@ -13,6 +13,7 @@ import {
   subscribeRouter,
   searchRouter,
 } from "./routes/api/index.js";
+import swaggerDocument from "./swagger/index.js";
 
 export const app = express();
 
@@ -31,6 +32,13 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/own", ownRouter);
 app.use("/api/search", searchRouter);
+
+app.use(
+  "/api/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { type: "json" })
+);
+
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });
