@@ -5,3 +5,4 @@ export { getCategories } from "./categories/index.js";
 export { getRecipeById } from "./recipes/index.js";
 export { getRecipes } from "./recipes/index.js";
 export { deleteRecipes } from "./recipes/index.js";
+export { searchController } from "./searchController/index.js";
