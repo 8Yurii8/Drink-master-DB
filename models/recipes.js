@@ -5,6 +5,9 @@ const recipesSchema = new Schema({
     type: String,
     required: true,
   },
+  favorites: {
+    type: Array,
+  },
 });
 
 const Recipes = model("recipes", recipesSchema);

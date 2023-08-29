@@ -6,3 +6,4 @@ export { default as categoriesRouter } from "./categoriesRouter.js";
 export { default as subscribeRouter } from "./subscribeRouter.js";
 export { default as ownRouter } from "./ownRouter.js";
 export { default as searchRouter } from "./searchRouter.js";
+export { default as favoriteRouter } from "./favoriteRouter.js";
