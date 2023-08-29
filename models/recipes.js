@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 
-
 const recipesSchema = new Schema({
   title: {
     type: String,
@@ -10,7 +9,6 @@ const recipesSchema = new Schema({
     type: Array,
   },
 });
-
 
 const Recipes = model("recipes", recipesSchema);
 
