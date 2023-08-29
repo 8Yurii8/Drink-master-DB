@@ -12,6 +12,7 @@ import {
   authRouter,
   subscribeRouter,
   searchRouter,
+  favoriteRouter,
 } from "./routes/api/index.js";
 import swaggerDocument from "./swagger/index.js";
 
@@ -32,12 +33,9 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/own", ownRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/favorite", favoriteRouter);
 
-app.use(
-  "/api/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, { type: "json" })
-);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, { type: "json" }));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
