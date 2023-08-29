@@ -33,6 +33,7 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/own", ownRouter);
 app.use("/api/search", searchRouter);
+
 app.use("/api/favorites", favoriteRouter);
 
 app.use(
