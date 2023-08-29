@@ -14,15 +14,21 @@ const updateFavoriteStatus = async (req, res) => {
     }
 
     if (recipe.favorites.includes(userId)) {
-      await Recipes.findByIdAndUpdate(recipeId, { $pull: { favorites: userId } }, { new: true });
-      res.json({ message: "Recipe deleted from favorite" });
+      const recipe = await Recipes.findByIdAndUpdate(
+        recipeId,
+        { $pull: { favorites: userId } },
+        { new: true }
+      );
+      const favorites = recipe.favorites;
+      res.json({ favorites, message: "Recipe deleted from favorite" });
     } else {
-      await Recipes.findByIdAndUpdate(
+      const recipe = await Recipes.findByIdAndUpdate(
         recipeId,
         { $addToSet: { favorites: userId } },
         { new: true, upsert: true }
       );
-      res.json({ message: "Recipe added to favorite" });
+      const favorites = recipe.favorites;
+      res.json({ favorites, message: "Recipe added to favorite" });
     }
   } catch (error) {
     console.error("Error:", error);
