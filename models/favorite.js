@@ -7,6 +7,6 @@ const favoriteSchema = new Schema({
   },
 });
 
-const Favorite = model("favorite", favoriteSchema);
+const Favorite = model("favorites", favoriteSchema);
 
 export default Favorite;

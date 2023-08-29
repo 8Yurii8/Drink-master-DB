@@ -1,6 +1,10 @@
 import express from "express";
 import { authenticate, isValidId } from "../../middlewares/index.js";
-import { getRecipes, deleteRecipes, getRecipeById } from "../../controllers/index.js";
+import {
+  getRecipes,
+  deleteRecipes,
+  getRecipeById,
+} from "../../controllers/index.js";
 
 const recipesRouter = express.Router();
 

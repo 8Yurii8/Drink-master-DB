@@ -1,8 +1,17 @@
 import { ctrlWrapper } from "../../helpers/index.js";
-import getRecipes from "../recipes/getRecipes.js";
+
+import Recipes from "../../models/recipes.js";
 
 const getFavoriteDrinks = async (req, res) => {
-  const { _id } = req.params;
+  const { userId } = req.params;
+
+  const allRecipe = await Recipes.find({});
+
+  const filterFavorites = allRecipe.filter(
+    (drink) => drink._doc.favorites && drink._doc.favorites.includes(userId)
+  );
+
+  res.json(filterFavorites);
 };
 
 export default ctrlWrapper(getFavoriteDrinks);
