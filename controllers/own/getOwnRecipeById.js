@@ -1,9 +1,9 @@
-import { Own } from "../../models/index.js";
+import { Recipes } from "../../models/index.js";
 import { ctrlWrapper, HttpError } from "../../helpers/index.js";
 
 const getOwnRecipes = async (req, res) => {
   const { id } = req.params;
-  const result = await Own.findById(id);
+  const result = await Recipes.findById(id);
   if (!result) {
     throw HttpError(404, "Not Found");
   }

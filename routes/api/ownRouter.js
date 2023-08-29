@@ -8,7 +8,7 @@ import {
 
 const ownRouter = express.Router();
 
-ownRouter.get("/", getOwnRecipes);
+ownRouter.get("/", authenticate, getOwnRecipes);
 
 ownRouter.delete("/:id", authenticate, deleteOwnRecipes);
 
