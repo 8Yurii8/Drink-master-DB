@@ -1,11 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const recipesSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-});
+const recipesSchema = new Schema({});
 
 const Recipes = model("recipes", recipesSchema);
 
