@@ -1,13 +1,13 @@
-import { Recipes } from "../../models/index.js";
+import { Own } from "../../models/index.js";
 import { ctrlWrapper, HttpError } from "../../helpers/index.js";
 
-const getRecipes = async (req, res) => {
+const getOwnRecipes = async (req, res) => {
   const { id } = req.params;
-  const result = await Recipes.findById(id);
+  const result = await Own.findById(id);
   if (!result) {
     throw HttpError(404, "Not Found");
   }
   res.json(result);
 };
 
-export default ctrlWrapper(getRecipes);
+export default ctrlWrapper(getOwnRecipes);
