@@ -6,26 +6,27 @@ const updateFavoriteStatus = async (req, res) => {
   const userId = _id.toString();
   const recipeId = req.params.id;
 
-  const recipes = await Recipes.findById(recipeId);
-  if (recipes.favorites.includes(userId)) {
-    await Recipes.findByIdAndUpdate(
-      recipeId,
-      { $pull: { favorites: userId.toString() } },
-      {
-        new: true,
-      }
-    );
-    res.json({ message: "Recipe deleted from favorite" });
-  } else {
-    await Recipes.findByIdAndUpdate(
-      recipeId,
-      { $push: { favorites: userId } },
-      {
-        new: true,
-      }
-    );
+  try {
+    const recipe = await Recipes.findById(recipeId);
 
-    res.json({ message: "Recipe added to favorite" });
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    if (recipe.favorites.includes(userId)) {
+      await Recipes.findByIdAndUpdate(recipeId, { $pull: { favorites: userId } }, { new: true });
+      res.json({ message: "Recipe deleted from favorite" });
+    } else {
+      await Recipes.findByIdAndUpdate(
+        recipeId,
+        { $addToSet: { favorites: userId } },
+        { new: true, upsert: true }
+      );
+      res.json({ message: "Recipe added to favorite" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "An error occurred" });
   }
 };
 
