@@ -5,14 +5,6 @@ const ounSchema = new Schema({
     type: String,
     required: true,
   },
-  //   own: {
-  //     type: String,
-  //   },
-  owner: {
-    type: Schema.Types.ObjectId,
-    require: true,
-    ref: "user",
-  },
 });
 
 const Own = model("recipes", ounSchema);
