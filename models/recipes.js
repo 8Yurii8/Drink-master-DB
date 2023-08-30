@@ -8,6 +8,10 @@ const recipesSchema = new Schema({
   favorites: {
     type: Array,
   },
+  category: {
+    type: String,
+    required: false,
+  },
 });
 
 const Recipes = model("recipes", recipesSchema);
