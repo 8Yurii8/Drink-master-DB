@@ -1,7 +1,7 @@
 import { Recipes } from "../../models/index.js";
 import { ctrlWrapper, HttpError } from "../../helpers/index.js";
 
-const getRecipes = async (req, res) => {
+const getRecipesById = async (req, res) => {
   const { id } = req.params;
   const result = await Recipes.findById(id);
   if (!result) {
@@ -10,4 +10,4 @@ const getRecipes = async (req, res) => {
   res.json(result);
 };
 
-export default ctrlWrapper(getRecipes);
+export default ctrlWrapper(getRecipesById);

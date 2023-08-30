@@ -13,6 +13,7 @@ import {
   subscribeRouter,
   searchRouter,
   favoriteRouter,
+  mainRouter,
 } from "./routes/api/index.js";
 import swaggerDocument from "./swagger/index.js";
 
@@ -33,8 +34,8 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/own", ownRouter);
 app.use("/api/search", searchRouter);
-
-app.use("/api/favorites", favoriteRouter);
+app.use("/api/favorite", favoriteRouter);
+app.use("/api/main", mainRouter);
 
 app.use(
   "/api/docs",
