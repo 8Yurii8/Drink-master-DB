@@ -112,6 +112,17 @@
             "Bearer": []
           }
         ],
+        "requestBody": {
+          "description": "User login data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrentRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Successfully",
@@ -242,33 +253,33 @@
         }
       }
     },
-    "/api/own": {
+    "/api/search": {
       "get": {
-        "summary": "Get all own recipes",
-        "tags": ["Own"],
+        "summary": "Search recipes by name, category, ingredient",
+        "tags": ["Recepi"],
         "security": [
           {
             "Bearer": []
           }
         ],
         "requestBody": {
-          "description": "User id",
+          "description": "name, category, ingredient",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscribeRequest"
+                "$ref": "#/components/schemas/SearchRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Get own recipes successfully",
+            "description": "Search recipes is successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SubscribeResponse"
+                  "$ref": "#/components/schemas/SearchResponse"
                 }
               }
             }
@@ -285,9 +296,9 @@
         }
       }
     },
-    "/api/own/:id": {
-      "post": {
-        "summary": "Get one own recipes",
+    "/api/own": {
+      "get": {
+        "summary": "Get all own recipes",
         "tags": ["Own"],
         "security": [
           {
@@ -295,23 +306,109 @@
           }
         ],
         "requestBody": {
-          "description": "Recipes id",
+          "description": "User token, User id",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscribeRequest"
+                "$ref": "#/components/schemas/AllOwnRecipesRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Subscribe is successful",
+            "description": "Get own recipes successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SubscribeResponse"
+                  "$ref": "#/components/schemas/AllOwnRecipesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "401": {
+            "description": "Unauthorized (invalid credentials)"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/own/:userId": {
+      "post": {
+        "summary": "Add own recipe",
+        "tags": ["Own"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "User recipe informations",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddOwnRecipesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Your recipe add successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddOwnRecipesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "401": {
+            "description": "Unauthorized (invalid credentials)"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/own/:recipeId": {
+      "delete": {
+        "summary": "Delete own recipe",
+        "tags": ["Own"],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Recipe id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteOwnRecipesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recepi delete is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteOwnRecipesResponse"
                 }
               }
             }
@@ -400,6 +497,15 @@
           }
         }
       },
+      "CurrentRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "your_jwt_token_here"
+          }
+        }
+      },
       "CurrentResponse": {
         "type": "object",
         "properties": {
@@ -446,40 +552,429 @@
           }
         }
       },
+      "SearchRequest": {
+        "type": "object",
+
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "your_jwt_token_here"
+          },
+          "drink": {
+            "type": "string",
+            "example": "Affair"
+          },
+          "category": {
+            "type": "string",
+            "example": "Ordinary Drink"
+          },
+          "ingredients": {
+            "type": "string",
+            "example": "Strawberry schnapps"
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "array",
+        "description": "Recipes by name, category, ingredient",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "639b6de9ff77d221f190c51e"
+            },
+            "drink": {
+              "type": "string",
+              "example": "Affair"
+            },
+            "drinkAlternate": {
+              "type": "string",
+              "example": null
+            },
+            "tags": {
+              "type": "string",
+              "example": null
+            },
+            "video": {
+              "type": "string",
+              "example": null
+            },
+            "category": {
+              "type": "string",
+              "example": "Ordinary Drink"
+            },
+            "IBA": {
+              "type": "string",
+              "example": null
+            },
+            "alcoholic": {
+              "type": "string",
+              "example": "Alcoholic"
+            },
+            "glass": {
+              "type": "string",
+              "example": "Highball glass"
+            },
+            "instructions": {
+              "type": "string",
+              "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
+            },
+            "instructionsES": {
+              "type": "string",
+              "example": "Vierta el Schnapps, el jugo de naranja y el jugo de arándano sobre hielo en un vaso alto. Complete con el agua carbonatada y sirva."
+            },
+            "instructionsDE": {
+              "type": "string",
+              "example": "Gießen Sie Schnaps, Orangensaft und Cranberrysaft über Eis in ein Highball-Glas. Mit Club-Soda überziehen und servieren."
+            },
+            "instructionsFR": {
+              "type": "string",
+              "example": "Verser le schnaps, le jus d'orange et le jus de canneberge sur de la glace dans un verre highball. Garnir de club soda et servir."
+            },
+            "instructionsIT": {
+              "type": "string",
+              "example": "Versare la grappa, il succo d'arancia e il succo di mirtillo rosso sul ghiaccio in un bicchiere highball. Completare con la soda club e servire."
+            },
+            "instructionsRU": {
+              "type": "string",
+              "example": "Налейте шнапс, апельсиновый сок и клюквенный сок со льдом в стакан хайбол. Долейте содовой и подавайте."
+            },
+            "instructionsPL": {
+              "type": "string",
+              "example": "Wlej sznaps, sok pomarańczowy i sok żurawinowy do lodu w szklance typu highball. Na wierzch z sodą klubową i podawaj."
+            },
+            "instructionsUK": {
+              "type": "string",
+              "example": "Розлийте шнапс, апельсиновий сік і журавлинний сік з льодом у келих хайбол. Зверху полийте газованою водою та подавайте."
+            },
+            "drinkThumb": {
+              "type": "string",
+              "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Strawberry schnapps"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "2 oz"
+                  },
+                  "ingredientThumb": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
+                  },
+                  "thumb-medium": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
+                  },
+                  "thumb-small": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
+                  }
+                }
+              }
+            },
+            "favorites": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "64ecf658d0b79426db3393e3"
+              }
+            },
+            "own": {
+              "type": "string",
+              "example": "64ecf658d0b79426db3393e3"
+            }
+          }
+        }
+      },
       "AllOwnRecipesRequest": {
         "type": "object",
         "properties": {
-          "_id": {
+          "token": {
             "type": "string",
+            "example": "your_jwt_token_here"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User ID from req.user",
             "example": "64eb4ef59444fa92bc724f4a"
           }
         }
       },
       "AllOwnRecipesResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "example": "You are subscribed to the newsletter from DrinkMaster"
+        "type": "array",
+        "description": "Example of one recipe from an array of recipes",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "639b6de9ff77d221f190c51e"
+            },
+            "drink": {
+              "type": "string",
+              "example": "Affair"
+            },
+            "drinkAlternate": {
+              "type": "string",
+              "example": null
+            },
+            "tags": {
+              "type": "string",
+              "example": null
+            },
+            "video": {
+              "type": "string",
+              "example": null
+            },
+            "category": {
+              "type": "string",
+              "example": "Ordinary Drink"
+            },
+            "IBA": {
+              "type": "string",
+              "example": null
+            },
+            "alcoholic": {
+              "type": "string",
+              "example": "Alcoholic"
+            },
+            "glass": {
+              "type": "string",
+              "example": "Highball glass"
+            },
+            "instructions": {
+              "type": "string",
+              "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
+            },
+            "instructionsES": {
+              "type": "string",
+              "example": "Vierta el Schnapps, el jugo de naranja y el jugo de arándano sobre hielo en un vaso alto. Complete con el agua carbonatada y sirva."
+            },
+            "instructionsDE": {
+              "type": "string",
+              "example": "Gießen Sie Schnaps, Orangensaft und Cranberrysaft über Eis in ein Highball-Glas. Mit Club-Soda überziehen und servieren."
+            },
+            "instructionsFR": {
+              "type": "string",
+              "example": "Verser le schnaps, le jus d'orange et le jus de canneberge sur de la glace dans un verre highball. Garnir de club soda et servir."
+            },
+            "instructionsIT": {
+              "type": "string",
+              "example": "Versare la grappa, il succo d'arancia e il succo di mirtillo rosso sul ghiaccio in un bicchiere highball. Completare con la soda club e servire."
+            },
+            "instructionsRU": {
+              "type": "string",
+              "example": "Налейте шнапс, апельсиновый сок и клюквенный сок со льдом в стакан хайбол. Долейте содовой и подавайте."
+            },
+            "instructionsPL": {
+              "type": "string",
+              "example": "Wlej sznaps, sok pomarańczowy i sok żurawinowy do lodu w szklance typu highball. Na wierzch z sodą klubową i podawaj."
+            },
+            "instructionsUK": {
+              "type": "string",
+              "example": "Розлийте шнапс, апельсиновий сік і журавлинний сік з льодом у келих хайбол. Зверху полийте газованою водою та подавайте."
+            },
+            "drinkThumb": {
+              "type": "string",
+              "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Strawberry schnapps"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "2 oz"
+                  },
+                  "ingredientThumb": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
+                  },
+                  "thumb-medium": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
+                  },
+                  "thumb-small": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
+                  }
+                }
+              }
+            },
+            "favorites": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "64ecf658d0b79426db3393e3"
+              }
+            },
+            "own": {
+              "type": "string",
+              "example": "64ecf658d0b79426db3393e3"
+            }
           }
         }
       },
-      "OneOwnRecipesRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email",
-            "example": "john@example.com"
+      "AddOwnRecipesRequest": {
+        "type": "array",
+        "description": "Add recipe",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "639b6de9ff77d221f190c51e"
+            },
+            "drink": {
+              "type": "string",
+              "example": "Affair"
+            },
+            "drinkAlternate": {
+              "type": "string",
+              "example": null
+            },
+            "tags": {
+              "type": "string",
+              "example": null
+            },
+            "video": {
+              "type": "string",
+              "example": null
+            },
+            "category": {
+              "type": "string",
+              "example": "Ordinary Drink"
+            },
+            "IBA": {
+              "type": "string",
+              "example": null
+            },
+            "alcoholic": {
+              "type": "string",
+              "example": "Alcoholic"
+            },
+            "glass": {
+              "type": "string",
+              "example": "Highball glass"
+            },
+            "instructions": {
+              "type": "string",
+              "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
+            },
+            "instructionsES": {
+              "type": "string",
+              "example": "Vierta el Schnapps, el jugo de naranja y el jugo de arándano sobre hielo en un vaso alto. Complete con el agua carbonatada y sirva."
+            },
+            "instructionsDE": {
+              "type": "string",
+              "example": "Gießen Sie Schnaps, Orangensaft und Cranberrysaft über Eis in ein Highball-Glas. Mit Club-Soda überziehen und servieren."
+            },
+            "instructionsFR": {
+              "type": "string",
+              "example": "Verser le schnaps, le jus d'orange et le jus de canneberge sur de la glace dans un verre highball. Garnir de club soda et servir."
+            },
+            "instructionsIT": {
+              "type": "string",
+              "example": "Versare la grappa, il succo d'arancia e il succo di mirtillo rosso sul ghiaccio in un bicchiere highball. Completare con la soda club e servire."
+            },
+            "instructionsRU": {
+              "type": "string",
+              "example": "Налейте шнапс, апельсиновый сок и клюквенный сок со льдом в стакан хайбол. Долейте содовой и подавайте."
+            },
+            "instructionsPL": {
+              "type": "string",
+              "example": "Wlej sznaps, sok pomarańczowy i sok żurawinowy do lodu w szklance typu highball. Na wierzch z sodą klubową i podawaj."
+            },
+            "instructionsUK": {
+              "type": "string",
+              "example": "Розлийте шнапс, апельсиновий сік і журавлинний сік з льодом у келих хайбол. Зверху полийте газованою водою та подавайте."
+            },
+            "drinkThumb": {
+              "type": "string",
+              "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Strawberry schnapps"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "2 oz"
+                  },
+                  "ingredientThumb": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
+                  },
+                  "thumb-medium": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
+                  },
+                  "thumb-small": {
+                    "type": "string",
+                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
+                  }
+                }
+              }
+            },
+            "favorites": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "64ecf658d0b79426db3393e3"
+              }
+            },
+            "own": {
+              "type": "string",
+              "example": "64ecf658d0b79426db3393e3"
+            }
           }
         }
       },
-      "OneOwnRecipesResponse": {
+      "AddOwnRecipesResponse": {
         "type": "object",
         "properties": {
           "message": {
+            "example": "Your recipe add successfully"
+          }
+        }
+      },
+      "DeleteOwnRecipesRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
             "type": "string",
-            "example": "You are subscribed to the newsletter from DrinkMaster"
+            "example": "your_jwt_token_here"
+          },
+          "recipeId": {
+            "type": "string",
+            "description": "Recepi id",
+            "example": "64eb4ef59444fa92bc724f4a"
+          }
+        }
+      },
+      "DeleteOwnRecipesResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "example": "Recepi delete is successful"
           }
         }
       }
