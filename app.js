@@ -36,6 +36,7 @@ app.use("/api/own", ownRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/favorite", favoriteRouter);
 app.use("/api/main", mainRouter);
+
 app.use(
   "/api/docs",
   swaggerUi.serve,
