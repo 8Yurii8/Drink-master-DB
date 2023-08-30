@@ -1,1 +1,1 @@
-export { default as getRecipesById } from "./getRecipesById.js";
+export { default as getRecipeById } from "./getRecipeById.js";

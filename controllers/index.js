@@ -5,4 +5,4 @@ export { getOwnRecipes } from "./own/index.js";
 export { deleteOwnRecipes } from "./own/index.js";
 export { searchController } from "./searchController/index.js";
 export { getFavoriteDrinks } from "./favorite/index.js";
-export { getRecipesById } from "./recipesController/index.js";
+export { getRecipeById } from "./recipesController/index.js";
