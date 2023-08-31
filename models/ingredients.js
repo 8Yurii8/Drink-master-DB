@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const schema = new Schema({
+export const schema = new Schema({
     title: {
         type: String,
         required: true,
@@ -9,11 +9,11 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-    thumbMedium: {
-        type: Boolean,
+    'thumb-medium': {
+        type: String,
         required: true,
     },
-    thumbSmall: {
+    'thumb-small': {
         type: String,
         required: true,
     },
