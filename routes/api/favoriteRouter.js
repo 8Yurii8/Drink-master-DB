@@ -6,7 +6,7 @@ import getFavoriteDrinks from "../../controllers/favorite/getFavorite.js";
 
 const favoriteRouter = express.Router();
 
-favoriteRouter.get("/:userId", authenticate, getFavoriteDrinks);
+favoriteRouter.get("/", authenticate, getFavoriteDrinks);
 
 favoriteRouter.patch("/:id", authenticate, isValidId, updateFavoriteStatus);
 
