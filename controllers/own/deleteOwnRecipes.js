@@ -10,6 +10,7 @@ const deleteOwnRecipes = async (req, res) => {
   }
 
   res.json({
+    result: result._id,
     code: 200,
     message: "recip deleted",
   });
