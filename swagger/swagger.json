@@ -184,14 +184,14 @@
     "/api/recipes/main-page": {
       "get": {
         "summary": "Get recipes or category",
-        "tags": ["Recepis"],
+        "tags": ["Recipe"],
         "security": [
           {
             "Bearer": []
           }
         ],
         "requestBody": {
-          "description": "four categories",
+          "description": "Categories",
           "required": true,
           "content": {
             "application/json": {
@@ -203,7 +203,7 @@
         },
         "responses": {
           "200": {
-            "description": "Recepi informations",
+            "description": "Recipe information",
             "content": {
               "application/json": {
                 "schema": {
@@ -223,15 +223,15 @@
     },
     "/api/recipes/:id:": {
       "get": {
-        "summary": "Get one recepi",
-        "tags": ["Recepis"],
+        "summary": "Get one recipe",
+        "tags": ["Recipe"],
         "security": [
           {
             "Bearer": []
           }
         ],
         "requestBody": {
-          "description": "Get one recepi by id",
+          "description": "Get one recipe by id",
           "required": true,
           "content": {
             "application/json": {
@@ -243,7 +243,7 @@
         },
         "responses": {
           "200": {
-            "description": "Recepi informations",
+            "description": "Recipe information",
             "content": {
               "application/json": {
                 "schema": {
@@ -264,7 +264,7 @@
     "/api/search": {
       "get": {
         "summary": "Search recipes by name, category, ingredient",
-        "tags": ["Recepis"],
+        "tags": ["Recipe"],
         "security": [
           {
             "Bearer": []
@@ -447,7 +447,7 @@
           }
         ],
         "requestBody": {
-          "description": "User recipe informations",
+          "description": "User recipe information",
           "required": true,
           "content": {
             "application/json": {
@@ -502,7 +502,7 @@
         },
         "responses": {
           "200": {
-            "description": "Recepi delete is successful",
+            "description": "Recipe delete is successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -631,7 +631,7 @@
         },
         "responses": {
           "200": {
-            "description": "Favorite recepi delete is successful",
+            "description": "Favorite recipe delete is successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -663,7 +663,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Popular recepi",
+            "description": "Popular recipe",
             "content": {
               "application/json": {
                 "schema": {
@@ -959,7 +959,7 @@
         "properties": {
           "recipeId": {
             "type": "string",
-            "description": "Recepi id",
+            "description": "Recipe id",
             "example": "64eb4ef59444fa92bc724f4a"
           }
         }
@@ -1536,7 +1536,7 @@
         "properties": {
           "recipeId": {
             "type": "string",
-            "description": "Recepi id",
+            "description": "Recipe id",
             "example": "64eb4ef59444fa92bc724f4a"
           }
         }
@@ -1545,7 +1545,7 @@
         "type": "object",
         "properties": {
           "message": {
-            "example": "Recepi delete is successful"
+            "example": "Recipe delete is successful"
           }
         }
       },
@@ -1706,7 +1706,7 @@
         "properties": {
           "recipeId": {
             "type": "string",
-            "description": "Recepi id",
+            "description": "Recipe id",
             "example": "64eb4ef59444fa92bc724f4a"
           }
         }
