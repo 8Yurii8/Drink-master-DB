@@ -11,7 +11,7 @@ const getMainRecipes = async (req, res) => {
 
   const resultPromises = uniqueCategories.map(async (category) => {
     const categoryRecipes = await Recipes.find({ category })
-      .sort({ _id: -1 })
+      //   .sort({ _id: -1 })
       .limit(3);
     return categoryRecipes;
   });

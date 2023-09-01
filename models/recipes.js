@@ -5,12 +5,13 @@ const recipesSchema = new Schema({
     type: String,
     required: true,
   },
-  favorites: {
-    type: Array,
-  },
+
   category: {
     type: String,
     required: false,
+  },
+  favorites: {
+    type: Array,
   },
 });
 
