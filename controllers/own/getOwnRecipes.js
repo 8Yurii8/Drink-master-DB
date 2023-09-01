@@ -3,11 +3,13 @@ import { ctrlWrapper } from "../../helpers/index.js";
 
 const getOwnRecipes = async (req, res) => {
   const { _id } = req.user;
-  const search = await Recipes.find({});
-  const filter = search.filter(
-    (recepi) => recepi._doc.own && recepi._doc.own.includes(_id)
-  );
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
+  const search = await Recipes.find({ owner: [_id] }, " ", {
+    skip,
+    limit,
+  });
 
-  res.json(filter);
+  res.json(search);
 };
 export default ctrlWrapper(getOwnRecipes);
