@@ -18,7 +18,6 @@ const getMainRecipes = async (req, res) => {
     }
     return flattenedArray;
   }
-  // const flattenedArray = flattenArray(mainRecipes);
 
   const resultPromises = uniqueCategories.map(async (category) => {
     const categoryRecipes = await Recipes.find({ category })
