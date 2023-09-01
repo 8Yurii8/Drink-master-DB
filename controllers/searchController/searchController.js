@@ -3,7 +3,12 @@ import { ctrlWrapper } from "../../helpers/index.js";
 
 const searchController = async (req, res) => {
   const { drink, category, ingredients } = req.body;
-  const search = await Recipes.find({});
+  const { page = 1, limit = 10 } = req.query;
+  const skip = (page - 1) * limit;
+  const search = await Recipes.find({}, " ", {
+    skip,
+    limit,
+  });
 
   let filter = search;
 
