@@ -78,7 +78,7 @@ const schema = new Schema({
     required: true,
   },
   favorites: {
-    type: [Schema.Types.ObjectId],
+    type: [String],
     ref: "user",
     default: "",
   },
