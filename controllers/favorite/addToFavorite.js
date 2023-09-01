@@ -11,6 +11,9 @@ const addToFavorite = async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
+    if (recipe.favorites.includes(userId)) {
+      return res.json({ message: "The recipe is already in favorites." });
+    }
     recipe = await Recipes.findByIdAndUpdate(
       recipeId,
       { $addToSet: { favorites: userId } },
