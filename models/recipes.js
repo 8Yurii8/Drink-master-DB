@@ -24,6 +24,7 @@ const schema = new Schema({
     type: String,
     default: "",
   },
+
   category: {
     type: String,
     required: true,
