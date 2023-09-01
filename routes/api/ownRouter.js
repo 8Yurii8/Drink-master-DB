@@ -1,17 +1,17 @@
-import express from "express";
-import { authenticate, isValidId } from "../../middlewares/index.js";
+import express from 'express';
+import { authenticate, isValidId } from '../../middlewares/index.js';
 import {
-  getOwnRecipes,
-  deleteOwnRecipes,
-  getOwnRecipeById,
-} from "../../controllers/index.js";
+    addOwnRecipe,
+    getOwnRecipes,
+    deleteOwnRecipes,
+} from '../../controllers/index.js';
 
 const ownRouter = express.Router();
 
-ownRouter.get("/", authenticate, getOwnRecipes);
+ownRouter.post('/', authenticate, addOwnRecipe);
 
-ownRouter.delete("/:id", authenticate, deleteOwnRecipes);
+ownRouter.get('/', authenticate, getOwnRecipes);
 
-ownRouter.get("/:id", authenticate, isValidId, getOwnRecipeById);
+ownRouter.delete('/:id', authenticate, isValidId, deleteOwnRecipes);
 
 export default ownRouter;

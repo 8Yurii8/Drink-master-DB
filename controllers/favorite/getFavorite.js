@@ -3,15 +3,24 @@ import { ctrlWrapper } from "../../helpers/index.js";
 import Recipes from "../../models/recipes.js";
 
 const getFavoriteDrinks = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.user;
 
-  const allRecipe = await Recipes.find({});
+  const { page = 1, limit = 9 } = req.query;
 
-  const filterFavorites = allRecipe.filter(
-    (drink) => drink._doc.favorites && drink._doc.favorites.includes(userId)
+  const qty = page * limit;
+
+  const allRecipe = await Recipes.find(
+    { favorites: [id] },
+    "-createdAd, -updateAd",
+    {
+      skip: 0,
+      limit: qty,
+    }
   );
 
-  res.json(filterFavorites);
+  const totalHitsRecipe = await Recipes.find({ favorites: [id] });
+
+  res.json({ favorites: allRecipe, totalHits: totalHitsRecipe.length });
 };
 
 export default ctrlWrapper(getFavoriteDrinks);
