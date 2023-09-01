@@ -8,7 +8,7 @@ const subscribeRouter = express.Router();
 
 subscribeRouter.post(
   "/",
-  authenticate,
+
   isEmptyBody,
   validateBody(emailSchema),
   ctrl.subscribeController
