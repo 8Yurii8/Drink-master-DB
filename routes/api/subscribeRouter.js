@@ -10,6 +10,7 @@ subscribeRouter.post(
   "/",
 
   isEmptyBody,
+  authenticate,
   validateBody(emailSchema),
   ctrl.subscribeController
 );
