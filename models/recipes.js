@@ -78,15 +78,16 @@ const schema = new Schema({
     required: true,
   },
   favorites: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
+    ref: "user",
+    default: "",
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
   },
 });
 const Recipes = model("recipes", schema);
 
 export default Recipes;
-
-// owner: {
-//     type: Schema.Types.ObjectId,
-//     ref: "user",
-//     required: true,
-//   },
