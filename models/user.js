@@ -24,6 +24,10 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    avatarURL: {
+      type: String,
+      default: "",
+    },
     token: String,
   },
   { versionKey: false, timestamps: true }
