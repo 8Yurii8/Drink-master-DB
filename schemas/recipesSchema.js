@@ -50,7 +50,8 @@ const recipesSchema = Joi.object({
         Joi.array().items(Joi.string()).required()
     ),
     ingredients: Joi.array().items(ingredientsSchema).required(),
-    owner: Joi.string().required(),
+    favorites: Joi.array().items(Joi.string()),
+    owner: Joi.string(),
 });
 
 export default recipesSchema;
