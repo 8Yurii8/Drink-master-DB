@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+
 const ingredientsSchema = new Schema({
   title: { type: String, required: true },
   measure: { type: String, required: true },
@@ -9,6 +10,10 @@ const ingredientsSchema = new Schema({
 
 const schema = new Schema({
   drink: {
+    type: String,
+    required: true,
+  },
+  imageThumb: {
     type: String,
     required: true,
   },
@@ -24,7 +29,6 @@ const schema = new Schema({
     type: String,
     default: "",
   },
-
   category: {
     type: String,
     required: true,
@@ -77,17 +81,16 @@ const schema = new Schema({
     type: [ingredientsSchema],
     required: true,
   },
-  favorites: {
-    type: [String],
-    ref: "user",
-    default: "",
-  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: "user",
-    required: true,
+  },
+  favorites: {
+    type: [String],
+    ref: "user",
   },
 });
+
 const Recipes = model("recipes", schema);
 
 export default Recipes;
