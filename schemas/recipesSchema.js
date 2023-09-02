@@ -11,6 +11,7 @@ const ingredientsSchema = Joi.object({
 const recipesSchema = Joi.object({
     drink: Joi.string().required(),
     drinkAlternate: Joi.string().default(''),
+    drinkThumb: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).default([]),
     video: Joi.string().default(''),
     category: Joi.string().required(),
