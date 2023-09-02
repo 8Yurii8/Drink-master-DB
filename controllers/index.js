@@ -6,4 +6,5 @@ export { deleteOwnRecipes } from "./own/index.js";
 export { searchController } from "./searchController/index.js";
 export { getFavoriteDrinks } from "./favorite/index.js";
 export { getRecipeById } from "./recipesController/index.js";
+export { getPopularRecipes } from './recipesController/index.js';
 export { addOwnRecipe } from './own/index.js';

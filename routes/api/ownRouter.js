@@ -1,5 +1,9 @@
 import express from 'express';
-import { authenticate, isValidId } from '../../middlewares/index.js';
+import {
+    authenticate,
+    isValidId,
+    uploadImage,
+} from '../../middlewares/index.js';
 import {
     addOwnRecipe,
     getOwnRecipes,
@@ -8,7 +12,12 @@ import {
 
 const ownRouter = express.Router();
 
-ownRouter.post('/', authenticate, addOwnRecipe);
+ownRouter.post(
+    '/',
+    authenticate,
+    uploadImage.single('drinkThumb'),
+    addOwnRecipe
+);
 
 ownRouter.get('/', authenticate, getOwnRecipes);
 

@@ -11,6 +11,7 @@ const ingredientsSchema = Joi.object({
 const recipesSchema = Joi.object({
     drink: Joi.string().required(),
     drinkAlternate: Joi.string().default(''),
+    drinkThumb: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).default([]),
     video: Joi.string().default(''),
     category: Joi.string().required(),
@@ -50,7 +51,8 @@ const recipesSchema = Joi.object({
         Joi.array().items(Joi.string()).required()
     ),
     ingredients: Joi.array().items(ingredientsSchema).required(),
-    owner: Joi.string().required(),
+    favorites: Joi.array().items(Joi.string()),
+    owner: Joi.string(),
 });
 
 export default recipesSchema;
