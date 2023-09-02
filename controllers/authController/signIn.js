@@ -7,7 +7,7 @@ import User from "../../models/user.js";
 const { JWT_SECRET } = process.env;
 
 const signIn = async ({ body }, res) => {
-  const { email, password, subscription } = body;
+  const { email, password } = body;
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -32,6 +32,7 @@ const signIn = async ({ body }, res) => {
       email: user.email,
       name: user.name,
       subscription: user.subscription,
+      avatarURL: user.avatarURL,
       _id: user._id,
     },
   });

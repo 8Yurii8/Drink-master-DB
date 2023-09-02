@@ -29,7 +29,7 @@ const addOwnRecipe = async (req, res) => {
     const newRecipe = {
         ...req.body,
         ingredients: JSON.parse(req.body.ingredients),
-        imageThumb: cloudinaryImageURL,
+        drinkThumb: cloudinaryImageURL,
         owner,
     };
 
