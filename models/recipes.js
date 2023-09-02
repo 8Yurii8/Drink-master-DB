@@ -88,6 +88,7 @@ const schema = new Schema({
     favorites: {
         type: [String],
         ref: 'user',
+        default: [],
     },
 });
 
