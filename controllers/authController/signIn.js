@@ -26,6 +26,9 @@ const signIn = async ({ body }, res) => {
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
 
+  user.tokenCount += 1;
+  await user.save();
+
   res.json({
     token,
     user: {
@@ -33,6 +36,7 @@ const signIn = async ({ body }, res) => {
       name: user.name,
       subscription: user.subscription,
       _id: user._id,
+      tokenCount: user.tokenCount,
     },
   });
 };
