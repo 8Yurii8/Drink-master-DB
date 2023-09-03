@@ -263,27 +263,67 @@
     },
     "/api/search": {
       "get": {
-        "summary": "Search recipes by name, category, ingredient",
+        "summary": "Search recipes by name, category, ingredient with pagination",
         "tags": ["Recipe"],
         "security": [
           {
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "drink or category or ingredient or all",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "query",
+            "name": "drink",
+            "schema": {
+              "type": "string",
+              "example": "Affair"
+            },
+
+            "description": "Name of the drink to search"
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "example": "Ordinary Drink"
+            },
+
+            "description": "Category of the drink to search"
+          },
+          {
+            "in": "query",
+            "name": "ingredients",
+            "schema": {
+              "type": "string",
+              "example": "Strawberry schnapps"
+            },
+
+            "description": "Ingredients of the drink to search"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            },
+
+            "description": "Page number for pagination"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "example": 10
+            },
+            "description": "Number of results per page "
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Search recipes is successfully",
+            "description": "Search recipes is successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -293,7 +333,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)"
+            "description": "Bad request (invalid request parameters)"
           },
           "401": {
             "description": "Unauthorized (invalid credentials)"
@@ -1081,24 +1121,6 @@
               "type": "string",
               "example": "64ecf658d0b79426db3393e3"
             }
-          }
-        }
-      },
-      "SearchRequest": {
-        "type": "object",
-
-        "properties": {
-          "drink": {
-            "type": "string",
-            "example": "Affair"
-          },
-          "category": {
-            "type": "string",
-            "example": "Ordinary Drink"
-          },
-          "ingredients": {
-            "type": "string",
-            "example": "Strawberry schnapps"
           }
         }
       },
