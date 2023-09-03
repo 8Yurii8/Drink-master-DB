@@ -91,7 +91,7 @@ const schema = new Schema(
             ref: 'user',
         },
         favorites: {
-            type: [String],
+            type: [{}],
             ref: 'user',
             default: [],
         },
