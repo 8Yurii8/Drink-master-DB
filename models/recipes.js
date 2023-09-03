@@ -8,93 +8,96 @@ const ingredientsSchema = new Schema({
     'thumb-small': { type: String, required: true },
 });
 
-const schema = new Schema({
-    about: {
-        type: String,
-        required: true,
+const schema = new Schema(
+    {
+        about: {
+            type: String,
+            required: true,
+        },
+        drink: {
+            type: String,
+            required: true,
+        },
+        drinkThumb: {
+            type: String,
+            required: true,
+        },
+        drinkAlternate: {
+            type: String,
+            default: '',
+        },
+        tags: {
+            type: [String],
+            default: '',
+        },
+        video: {
+            type: String,
+            default: '',
+        },
+        category: {
+            type: String,
+            required: true,
+        },
+        IBA: {
+            type: String,
+            default: '',
+        },
+        alcoholic: {
+            type: String,
+            default: '',
+        },
+        glass: {
+            type: String,
+            required: true,
+        },
+        instructions: {
+            type: [String],
+            required: true,
+        },
+        instructionsES: {
+            type: [String],
+            default: '',
+        },
+        instructionsDE: {
+            type: [String],
+            default: '',
+        },
+        instructionsFR: {
+            type: [String],
+            default: '',
+        },
+        instructionsIT: {
+            type: [String],
+            default: '',
+        },
+        instructionsRU: {
+            type: [String],
+            default: '',
+        },
+        instructionsPL: {
+            type: [String],
+            default: '',
+        },
+        instructionsUK: {
+            type: [String],
+            default: '',
+        },
+        ingredients: {
+            type: [ingredientsSchema],
+            required: true,
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+        },
+        favorites: {
+            type: [String],
+            ref: 'user',
+            default: [],
+        },
     },
-    drink: {
-        type: String,
-        required: true,
-    },
-    drinkThumb: {
-        type: String,
-        required: true,
-    },
-    drinkAlternate: {
-        type: String,
-        default: '',
-    },
-    tags: {
-        type: [String],
-        default: '',
-    },
-    video: {
-        type: String,
-        default: '',
-    },
-    category: {
-        type: String,
-        required: true,
-    },
-    IBA: {
-        type: String,
-        default: '',
-    },
-    alcoholic: {
-        type: String,
-        default: '',
-    },
-    glass: {
-        type: String,
-        required: true,
-    },
-    instructions: {
-        type: [String],
-        required: true,
-    },
-    instructionsES: {
-        type: [String],
-        default: '',
-    },
-    instructionsDE: {
-        type: [String],
-        default: '',
-    },
-    instructionsFR: {
-        type: [String],
-        default: '',
-    },
-    instructionsIT: {
-        type: [String],
-        default: '',
-    },
-    instructionsRU: {
-        type: [String],
-        default: '',
-    },
-    instructionsPL: {
-        type: [String],
-        default: '',
-    },
-    instructionsUK: {
-        type: [String],
-        default: '',
-    },
-    ingredients: {
-        type: [ingredientsSchema],
-        required: true,
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-    },
-    favorites: {
-        type: [String],
-        ref: 'user',
-        default: [],
-    },
-});
+    { versionKey: false, timestamps: true }
+);
 
 const Recipes = model('recipes', schema);
 
