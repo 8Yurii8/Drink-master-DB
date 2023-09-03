@@ -6,32 +6,50 @@ import { cloudinary } from "../../cloudinary/index.js";
 const updateUser = async (req, res) => {
   const { id } = req.user;
 
-  if (!req.file) throw HttpError(404, "No image provided");
+  const { name, avatarURL } = req.body;
 
-  const { path: filePath, originalname } = req.file;
+  if (!name && !avatarURL) {
+    throw HttpError(
+      404,
+      "At least one field (name or avatarURL) must be provided."
+    );
+  }
 
-  const cloudinaryOptions = {
-    folder: "avatars",
-    allowed_formats: ["jpg", "jpeg", "png", "bmp"],
-    public_id: `${originalname}_${id}`,
-    transformation: { width: 100, height: 100, crop: "fill" },
-    overwrite: true,
-    secure: true,
-  };
+  let cloudinaryAvatarURL = req.user.avatarURL;
 
-  const { secure_url: cloudinaryAvatarURL } = await cloudinary.uploader.upload(
-    filePath,
-    cloudinaryOptions
-  );
+  if (req.file) {
+    const { path: filePath, originalname } = req.file;
 
-  await fs.unlink(filePath);
+    const cloudinaryOptions = {
+      folder: "avatars",
+      allowed_formats: ["jpg", "jpeg", "png", "bmp"],
+      public_id: `${originalname}_${id}`,
+      transformation: { width: 100, height: 100, crop: "fill" },
+      overwrite: true,
+      secure: true,
+    };
 
-  const data = {
-    avatarURL: cloudinaryAvatarURL,
-    ...req.body,
-  };
+    const { secure_url } = await cloudinary.uploader.upload(
+      filePath,
+      cloudinaryOptions
+    );
 
-  const newUser = await User.findByIdAndUpdate(id, data, {
+    cloudinaryAvatarURL = secure_url;
+
+    await fs.unlink(filePath);
+  }
+
+  const updateData = {};
+
+  if (name) {
+    updateData.name = name;
+  }
+
+  if (cloudinaryAvatarURL) {
+    updateData.avatarURL = cloudinaryAvatarURL;
+  }
+
+  const newUser = await User.findByIdAndUpdate(id, updateData, {
     new: true,
   });
 

@@ -12,13 +12,17 @@ const deleteFromFavorites = async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-    if (!recipe.favorites.includes(userId)) {
-      return res.json({ message: "The recipe was previously removed from favorites." });
+
+    for (let i = 0; i < recipe.favorites.length; i += 1) {
+      const currRecipe = recipe.favorites[i];
+      if (currRecipe.userId !== userId) {
+        return res.json({ message: "The recipe was previously removed from favorites." });
+      }
     }
 
     recipe = await Recipes.findByIdAndUpdate(
       recipeId,
-      { $pull: { favorites: userId } },
+      { $pull: { favorites: { userId: userId } } },
       { new: true }
     );
     const favorites = recipe.favorites;
