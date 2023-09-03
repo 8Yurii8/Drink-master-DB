@@ -9,6 +9,7 @@ const ingredientsSchema = Joi.object({
 });
 
 const recipesSchema = Joi.object({
+    about: Joi.string().required(),
     drink: Joi.string().required(),
     drinkAlternate: Joi.string().default(''),
     drinkThumb: Joi.string().required(),

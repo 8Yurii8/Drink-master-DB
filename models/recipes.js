@@ -9,6 +9,10 @@ const ingredientsSchema = new Schema({
 });
 
 const schema = new Schema({
+    about: {
+        type: String,
+        required: true,
+    },
     drink: {
         type: String,
         required: true,
