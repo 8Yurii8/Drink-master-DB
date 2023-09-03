@@ -5,10 +5,9 @@ const getFavoriteDrinks = async (req, res) => {
   const { id } = req.user;
 
   const allRecipe = await Recipes.find({
-      "favorites.userId": id,
-
-    res.json(allRecipe);
-  
+    "favorites.userId": id,
+  });
+  res.json(allRecipe);
 };
 
 export default ctrlWrapper(getFavoriteDrinks);
