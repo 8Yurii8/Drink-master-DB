@@ -5,18 +5,24 @@ const addToFavorite = async (req, res) => {
   const { _id } = req.user;
   const userId = _id.toString();
   const recipeId = req.params.id;
+  const addedAt = new Date().getTime();
 
   try {
     let recipe = await Recipes.findById(recipeId);
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-    if (recipe.favorites.includes(userId)) {
-      return res.json({ message: "The recipe is already in favorites." });
+
+    for (let i = 0; i < recipe.favorites.length; i += 1) {
+      const currRecipe = recipe.favorites[i];
+      if (currRecipe.userId === userId) {
+        return res.json({ message: "The recipe is already in favorites." });
+      }
     }
+    
     recipe = await Recipes.findByIdAndUpdate(
       recipeId,
-      { $addToSet: { favorites: userId } },
+      { $addToSet: { favorites: { userId, addedAt } } },
       { new: true, upsert: true }
     );
     const favorites = recipe.favorites;
