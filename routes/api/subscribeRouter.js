@@ -15,4 +15,6 @@ subscribeRouter.post(
   ctrl.subscribeController
 );
 
+subscribeRouter.delete("/", authenticate, ctrl.unsubscribeController);
+
 export default subscribeRouter;
