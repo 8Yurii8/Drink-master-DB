@@ -6,7 +6,8 @@ const getFavoriteDrinks = async (req, res) => {
 
   const allRecipe = await Recipes.find({
     "favorites.userId": id,
-  });
+  }).sort({ "favorites.addedAt": -1 });
+
   res.json(allRecipe);
 };
 
