@@ -24,7 +24,9 @@ const deleteFromFavorites = async (req, res) => {
     }
 
     if (!found) {
-      return res.json({ message: "The recipe was previously removed from favorites." });
+      return res.json({
+        message: "The recipe was previously removed from favorites.",
+      });
     }
 
     recipe = await Recipes.findByIdAndUpdate(
