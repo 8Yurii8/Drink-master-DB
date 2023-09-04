@@ -19,17 +19,19 @@ const deleteOwnRecipes = async (req, res) => {
       return res.json({
         message: "This user does not have this recipe",
       });
-      return;
     } else {
-      const result = await Recipes.findByIdAndDelete(id);
+      const result = await Recipes.findByIdAndUpdate(
+        id,
+        { owner: "" },
+        { new: true }
+      );
 
       if (!result) {
         throw HttpError(404, "Not found");
       }
       res.json({
-        result: result._id,
         code: 200,
-        message: "recip deleted",
+        message: "recip update",
       });
     }
   } catch (error) {

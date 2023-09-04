@@ -91,8 +91,7 @@ const schema = new Schema(
       required: true,
     },
     owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+      type: String,
     },
     favorites: [favoriteSchema],
   },
