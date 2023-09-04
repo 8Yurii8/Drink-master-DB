@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { mongoose } from 'mongoose';
+import { urlRegexp } from '../schemas/regexp.js';
 
 const ingredientsSchema = new Schema({
     title: { type: String, required: true },
@@ -9,7 +9,7 @@ const ingredientsSchema = new Schema({
     'thumb-small': { type: String, required: true },
 });
 
-const favoriteSchema = new mongoose.Schema({
+const favoriteSchema = new Schema({
     userId: String,
     addedAt: Date,
 });
@@ -18,27 +18,33 @@ const schema = new Schema(
     {
         about: {
             type: String,
+            minlength: 10,
             required: true,
         },
         drink: {
             type: String,
+            minlength: 3,
             required: true,
         },
         drinkThumb: {
             type: String,
+            match: [
+                urlRegexp,
+                'Field "drinkThumb" must be a valid URL starting with https://',
+            ],
             required: true,
         },
         drinkAlternate: {
             type: String,
-            default: '',
+            default: null,
         },
         tags: {
-            type: [String],
-            default: '',
+            type: String,
+            default: null,
         },
         video: {
             type: String,
-            default: '',
+            default: null,
         },
         category: {
             type: String,
@@ -46,11 +52,11 @@ const schema = new Schema(
         },
         IBA: {
             type: String,
-            default: '',
+            default: null,
         },
         alcoholic: {
             type: String,
-            default: '',
+            default: null,
         },
         glass: {
             type: String,
@@ -62,39 +68,38 @@ const schema = new Schema(
         },
         instructionsES: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsDE: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsFR: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsIT: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsRU: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsPL: {
             type: [String],
-            default: '',
+            default: null,
         },
         instructionsUK: {
             type: [String],
-            default: '',
+            default: null,
         },
         ingredients: {
             type: [ingredientsSchema],
             required: true,
         },
         owner: {
-            type: Schema.Types.ObjectId,
-            ref: 'user',
+            type: String,
         },
         favorites: [favoriteSchema],
     },
