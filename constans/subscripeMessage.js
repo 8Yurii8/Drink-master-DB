@@ -1,5 +1,3 @@
-const { BASE_URL } = process.env;
-
 const subscripeMessage = `
 <div>
   <h1 style="text-align: center; color: #161f37; font-size: 42px">
@@ -20,10 +18,10 @@ const subscripeMessage = `
     <p style="color: #0a0a11; font-size: 16px; letter-spacing: 0.02em; margin-bottom: 10px">
       You have successfully subscribed to the newsletter from the
       <a
-        href="/"
+        href="https://disrachik.github.io/frontend-create-cocktail/main"
         target="_blank"
         style="text-decoration: none; color: #4070cd"
-        >${BASE_URL}</a
+        >Drink Master</a
       >. All the latest updates, recipe announcements, and articles for the
       week will be delivered to you via email.
     </p>
@@ -33,10 +31,10 @@ const subscripeMessage = `
   </div>
   <div style="padding: 10px; text-align: center">
     <a
-      href="/"
+      href="https://disrachik.github.io/frontend-create-cocktail/main"
       target="_blank"
       style="text-decoration: none; font-size: 14px; color: #4070cd"
-      >${BASE_URL}</a
+      >Drink Master</a
     >
     <p style="margin: 0; margin-top: 4px; font-size: 12px; color: #0a0a11">
       ©2023 Drink Master. All rights reserved.
