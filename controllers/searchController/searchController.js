@@ -6,24 +6,23 @@ const searchController = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
 
-  const searchConditions = {};
+  const query = {};
 
   if (drink) {
-    const regex = new RegExp(drink, "i");
-    searchConditions.drink = regex;
+    query.drink = new RegExp(drink, "i");
   }
 
   if (category) {
-    searchConditions.category = category;
+    query.category = category;
   }
 
   if (ingredients) {
-    searchConditions["ingredients.title"] = ingredients;
+    query["ingredients.title"] = ingredients;
   }
 
-  const search = await Recipes.find(searchConditions).skip(skip).limit(limit);
+  const search = await Recipes.find(query).skip(skip).limit(limit);
 
-  const totalResults = await Recipes.countDocuments(searchConditions);
+  const totalResults = await Recipes.countDocuments(query);
 
   const totalPages = Math.ceil(totalResults / limit);
 
