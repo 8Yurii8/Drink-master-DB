@@ -253,7 +253,7 @@
         }
       }
     },
-    "/recipes/{recipeId}:": {
+    "/recipes/{recipeId}": {
       "get": {
         "summary": "Get one recipe",
         "tags": ["Recipe"],
@@ -262,17 +262,17 @@
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Get one recipe by id",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OneRecipeRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipeId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Recipe Id to find"
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Recipe information",
@@ -615,7 +615,7 @@
         }
       }
     },
-    "/own": {
+    "/own/": {
       "get": {
         "summary": "Get all own recipes",
         "tags": ["Own"],
@@ -658,7 +658,7 @@
         }
       }
     },
-    "/own/{userId}": {
+    "/own": {
       "post": {
         "summary": "Add own recipe",
         "tags": ["Own"],
@@ -710,17 +710,17 @@
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Recipe id",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteOwnRecipesRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipeId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Recipe ID to delete"
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Recipe delete is successful",
@@ -796,17 +796,17 @@
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "User id from req.user, recipe id",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFavoriteRecipesRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipeId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Recipe ID to add to favorites"
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Recipe added to favorite",
@@ -839,17 +839,17 @@
             "Bearer": []
           }
         ],
-        "requestBody": {
-          "description": "Recipe id",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeleteFavoriteRecipesRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recipeID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Recipe ID to delete favorites"
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Favorite recipe delete is successful",
@@ -1148,16 +1148,6 @@
               "type": "string",
               "example": "64ecf658d0b79426db3393e3"
             }
-          }
-        }
-      },
-      "OneRecipeRequest": {
-        "type": "object",
-        "properties": {
-          "recipeId": {
-            "type": "string",
-            "description": "Recipe id",
-            "example": "64eb4ef59444fa92bc724f4a"
           }
         }
       },
@@ -1634,121 +1624,63 @@
         }
       },
       "AddOwnRecipesRequest": {
-        "type": "array",
+        "type": "object",
         "description": "Add recipe",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "example": "639b6de9ff77d221f190c51e"
-            },
-            "drink": {
-              "type": "string",
-              "example": "Affair"
-            },
-            "drinkAlternate": {
-              "type": "string",
-              "example": null
-            },
-            "tags": {
-              "type": "string",
-              "example": null
-            },
-            "video": {
-              "type": "string",
-              "example": null
-            },
-            "category": {
-              "type": "string",
-              "example": "Ordinary Drink"
-            },
-            "IBA": {
-              "type": "string",
-              "example": null
-            },
-            "alcoholic": {
-              "type": "string",
-              "example": "Alcoholic"
-            },
-            "glass": {
-              "type": "string",
-              "example": "Highball glass"
-            },
-            "instructions": {
-              "type": "string",
-              "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
-            },
-            "instructionsES": {
-              "type": "string",
-              "example": "Vierta el Schnapps, el jugo de naranja y el jugo de arándano sobre hielo en un vaso alto. Complete con el agua carbonatada y sirva."
-            },
-            "instructionsDE": {
-              "type": "string",
-              "example": "Gießen Sie Schnaps, Orangensaft und Cranberrysaft über Eis in ein Highball-Glas. Mit Club-Soda überziehen und servieren."
-            },
-            "instructionsFR": {
-              "type": "string",
-              "example": "Verser le schnaps, le jus d'orange et le jus de canneberge sur de la glace dans un verre highball. Garnir de club soda et servir."
-            },
-            "instructionsIT": {
-              "type": "string",
-              "example": "Versare la grappa, il succo d'arancia e il succo di mirtillo rosso sul ghiaccio in un bicchiere highball. Completare con la soda club e servire."
-            },
-            "instructionsRU": {
-              "type": "string",
-              "example": "Налейте шнапс, апельсиновый сок и клюквенный сок со льдом в стакан хайбол. Долейте содовой и подавайте."
-            },
-            "instructionsPL": {
-              "type": "string",
-              "example": "Wlej sznaps, sok pomarańczowy i sok żurawinowy do lodu w szklance typu highball. Na wierzch z sodą klubową i podawaj."
-            },
-            "instructionsUK": {
-              "type": "string",
-              "example": "Розлийте шнапс, апельсиновий сік і журавлинний сік з льодом у келих хайбол. Зверху полийте газованою водою та подавайте."
-            },
-            "drinkThumb": {
-              "type": "string",
-              "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
-            },
-            "ingredients": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "Strawberry schnapps"
-                  },
-                  "measure": {
-                    "type": "string",
-                    "example": "2 oz"
-                  },
-                  "ingredientThumb": {
-                    "type": "string",
-                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
-                  },
-                  "thumb-medium": {
-                    "type": "string",
-                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
-                  },
-                  "thumb-small": {
-                    "type": "string",
-                    "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
-                  }
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "639b6de9ff77d221f190c51e"
+          },
+          "drink": {
+            "type": "string",
+            "example": "New Cocktail"
+          },
+          "category": {
+            "type": "string",
+            "example": "Ordinary Drink"
+          },
+          "glass": {
+            "type": "string",
+            "example": "Highball glass"
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
+          },
+          "drinkThumb": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
+          },
+          "about": {
+            "type": "string",
+            "example": "this new recipe"
+          },
+          "ingredients": {
+            "type": "string",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Strawbe rry schnapps"
+                },
+                "measure": {
+                  "type": "string",
+                  "example": "2 oz"
+                },
+                "ingredientThumb": {
+                  "type": "string",
+                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
+                },
+                "thumb-medium": {
+                  "type": "string",
+                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
+                },
+                "thumb-small": {
+                  "type": "string",
+                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
                 }
               }
-            },
-            "favorites": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "example": "64ecf658d0b79426db3393e3"
-              }
-            },
-            "own": {
-              "type": "string",
-              "example": "64ecf658d0b79426db3393e3"
             }
           }
         }
@@ -1758,16 +1690,6 @@
         "properties": {
           "message": {
             "example": "Your recipe add successfully"
-          }
-        }
-      },
-      "DeleteOwnRecipesRequest": {
-        "type": "object",
-        "properties": {
-          "recipeId": {
-            "type": "string",
-            "description": "Recipe id",
-            "example": "64eb4ef59444fa92bc724f4a"
           }
         }
       },
@@ -1909,42 +1831,62 @@
           }
         }
       },
-      "AddFavoriteRecipesRequest": {
-        "type": "object",
-        "properties": {
-          "UserId": {
-            "type": "string",
-            "example": "64eb213a1b3627a63620e6c4"
-          },
-          "RecipeId": {
-            "type": "string",
-
-            "example": "639b6de9ff77d221f190c51e"
-          }
-        }
-      },
       "AddFavoriteRecipesResponse": {
         "type": "object",
         "properties": {
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "addedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "_id": {
+                  "type": "string"
+                }
+              },
+              "required": ["userId", "addedAt", "_id"]
+            }
+          },
           "message": {
-            "example": "Recipe added to favorite"
-          }
-        }
-      },
-      "DeleteFavoriteRecipesRequest": {
-        "type": "object",
-        "properties": {
-          "recipeId": {
             "type": "string",
-            "description": "Recipe id",
-            "example": "64eb4ef59444fa92bc724f4a"
+            "example": "Recipe added to favorite"
+          },
+          "totalCountAddedByUser": {
+            "type": "integer",
+            "example": "1"
           }
         }
       },
       "DeleteFavoriteRecipesResponse": {
         "type": "object",
         "properties": {
+          "favorites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "addedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "_id": {
+                  "type": "string"
+                }
+              },
+              "required": ["userId", "addedAt", "_id"]
+            }
+          },
           "message": {
+            "type": "string",
             "example": "Recipe deleted from favorite"
           }
         }
