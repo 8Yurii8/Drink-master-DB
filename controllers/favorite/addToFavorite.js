@@ -1,5 +1,5 @@
-import Recipes from "../../models/recipes.js";
-import { ctrlWrapper } from "../../helpers/index.js";
+import Recipes from '../../models/recipes.js';
+import { ctrlWrapper } from '../../helpers/index.js';
 
 const addToFavorite = async (req, res) => {
   const { _id } = req.user;
@@ -10,26 +10,35 @@ const addToFavorite = async (req, res) => {
   try {
     let recipe = await Recipes.findById(recipeId);
     if (!recipe) {
-      return res.status(404).json({ message: "Recipe not found" });
+      return res.status(404).json({ message: 'Recipe not found' });
     }
 
     for (let i = 0; i < recipe.favorites.length; i += 1) {
       const currRecipe = recipe.favorites[i];
       if (currRecipe.userId === userId) {
-        return res.json({ message: "The recipe is already in favorites." });
+        return res.json({ message: 'The recipe is already in favorites.' });
       }
     }
-    
+
     recipe = await Recipes.findByIdAndUpdate(
       recipeId,
       { $addToSet: { favorites: { userId, addedAt } } },
       { new: true, upsert: true }
     );
+
+    const allRecipe = await Recipes.find({
+      'favorites.userId': userId,
+    });
+
     const favorites = recipe.favorites;
-    res.json({ favorites, message: "Recipe added to favorite" });
+    res.json({
+      favorites,
+      message: 'Recipe added to favorite',
+      totalCountAddedByUser: allRecipe.length,
+    });
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ message: "An error occurred" });
+    console.error('Error:', error);
+    res.status(500).json({ message: 'An error occurred' });
   }
 };
 
