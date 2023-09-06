@@ -660,7 +660,7 @@
     },
     "/own": {
       "post": {
-        "summary": "Add own recipe",
+        "summary": "Додати власний рецепт",
         "tags": ["Own"],
         "security": [
           {
@@ -671,9 +671,71 @@
           "description": "User recipe information",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/AddOwnRecipesRequest"
+                "type": "object",
+                "properties": {
+                  "drinkThumb": {
+                    "type": "file",
+                    "example": "Get the image drunk"
+                  },
+                  "drink": {
+                    "type": "string",
+                    "example": "Ordinary Drink"
+                  },
+                  "about": {
+                    "type": "string",
+                    "example": "About your drink"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Ordinary Drink"
+                  },
+                  "glass": {
+                    "type": "string",
+                    "example": "Cocktail glass"
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "7-Up"
+                        },
+                        "measure": {
+                          "type": "string",
+                          "example": "1cl"
+                        },
+                        "ingredientThumb": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dec1shvoo/image/upload/v1689169605/cocktails-v1/ingredient/Dark%20rum.png"
+                        },
+                        "thumb-medium": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dec1shvoo/image/upload/v1689169605/cocktails-v1/ingredient/Dark%20rum-Medium.png"
+                        },
+                        "thumb-small": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dec1shvoo/image/upload/v1689169605/cocktails-v1/ingredient/Dark%20rum-Small.png"
+                        }
+                      }
+                    }
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "items": {
+                      "type": "array"
+                    },
+                    "example": [
+                      "In a shaker half-filled with ice cubes,",
+                      "combine the rum, Kahlua, and cream.",
+                      "Shake well. Strain into a cocktail glass",
+                      "and garnish with the nutmeg."
+                    ]
+                  }
+                }
               }
             }
           }
@@ -1625,63 +1687,47 @@
       },
       "AddOwnRecipesRequest": {
         "type": "object",
-        "description": "Add recipe",
         "properties": {
-          "_id": {
-            "type": "string",
-            "example": "639b6de9ff77d221f190c51e"
+          "drinkThumb": {
+            "type": "string"
           },
           "drink": {
-            "type": "string",
-            "example": "New Cocktail"
-          },
-          "category": {
-            "type": "string",
-            "example": "Ordinary Drink"
-          },
-          "glass": {
-            "type": "string",
-            "example": "Highball glass"
-          },
-          "instructions": {
-            "type": "string",
-            "example": "Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve."
-          },
-          "drinkThumb": {
-            "type": "string",
-            "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689167139/cocktails-v1/drinks/Affair.jpg"
+            "type": "string"
           },
           "about": {
-            "type": "string",
-            "example": "this new recipe"
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "glass": {
+            "type": "string"
           },
           "ingredients": {
-            "type": "string",
+            "type": "array",
             "items": {
               "type": "object",
               "properties": {
                 "title": {
-                  "type": "string",
-                  "example": "Strawbe rry schnapps"
+                  "type": "string"
                 },
                 "measure": {
-                  "type": "string",
-                  "example": "2 oz"
+                  "type": "string"
                 },
                 "ingredientThumb": {
-                  "type": "string",
-                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps.png"
+                  "type": "string"
                 },
                 "thumb-medium": {
-                  "type": "string",
-                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Medium.png"
+                  "type": "string"
                 },
                 "thumb-small": {
-                  "type": "string",
-                  "example": "http://res.cloudinary.com/dec1shvoo/image/upload/v1689169610/cocktails-v1/ingredient/Strawberry%20schnapps-Small.png"
+                  "type": "string"
                 }
               }
             }
+          },
+          "instructions": {
+            "type": "string"
           }
         }
       },
