@@ -20,10 +20,7 @@ const searchController = async (req, res) => {
     query["ingredients.title"] = ingredients;
   }
 
-  const search = await Recipes.find(query)
-    .sort({ createdAt: -1 })
-    .skip(skip)
-    .limit(limit);
+  const search = await Recipes.find(query).skip(skip).limit(limit);
 
   const totalResults = await Recipes.countDocuments(query);
 
